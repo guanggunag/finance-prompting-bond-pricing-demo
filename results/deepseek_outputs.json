@@ -1,0 +1,314 @@
+[
+  {
+    "case_id": "case_02_30_360_quarterly_premium",
+    "prompt_id": "bad_01",
+    "prompt_type": "bad",
+    "model": "deepseek-v4-flash",
+    "prompt": "Calculate the dirty price using a simple 30/360 accrued-interest calculation without adjusting February month-end or 31st dates.\n\nBond inputs:\n{\n  \"face_value\": 5000,\n  \"clean_price_per_100\": 101.25,\n  \"annual_coupon_rate\": 0.045,\n  \"coupon_frequency\": 4,\n  \"last_coupon_date\": \"2026-02-28\",\n  \"settlement_date\": \"2026-04-15\",\n  \"next_coupon_date\": \"2026-05-31\",\n  \"day_count_convention\": \"30/360\"\n}",
+    "raw_response": "{\n  \"dollar_clean_price\": 5062.5,\n  \"coupon_per_period\": 0.01125,\n  \"accrued_fraction\": 0.5053763440860215,\n  \"accrued_interest\": 28.42741935483871,\n  \"dirty_price\": 5090.927419354839\n}",
+    "ground_truth": {
+      "dollar_clean_price": 5062.5,
+      "coupon_per_period": 56.25,
+      "accrued_fraction": 0.5,
+      "accrued_interest": 28.125,
+      "dirty_price": 5090.625
+    },
+    "score": {
+      "correct": false,
+      "reason": "coupon_per_period: expected 56.25, got 0.01125; accrued_fraction: expected 0.5, got 0.5053763440860215; accrued_interest: expected 28.125, got 28.42741935483871; dirty_price: expected 5090.625, got 5090.927419354839",
+      "parsed": {
+        "dollar_clean_price": 5062.5,
+        "coupon_per_period": 0.01125,
+        "accrued_fraction": 0.5053763440860215,
+        "accrued_interest": 28.42741935483871,
+        "dirty_price": 5090.927419354839
+      }
+    }
+  },
+  {
+    "case_id": "case_02_30_360_quarterly_premium",
+    "prompt_id": "bad_02",
+    "prompt_type": "bad",
+    "model": "deepseek-v4-flash",
+    "prompt": "Find the final bond price using raw 30/360 day counts. Keep printed day numbers exactly as written, so February 28 stays D=28 and May 31 stays D=31.\n\nBond inputs:\n{\n  \"face_value\": 5000,\n  \"clean_price_per_100\": 101.25,\n  \"annual_coupon_rate\": 0.045,\n  \"coupon_frequency\": 4,\n  \"last_coupon_date\": \"2026-02-28\",\n  \"settlement_date\": \"2026-04-15\",\n  \"next_coupon_date\": \"2026-05-31\",\n  \"day_count_convention\": \"30/360\"\n}",
+    "raw_response": "{\n  \"dollar_clean_price\": 5062.5,\n  \"coupon_per_period\": 56.25,\n  \"accrued_fraction\": 0.5053763440860215,\n  \"accrued_interest\": 28.42741935483871,\n  \"dirty_price\": 5090.927419354839\n}",
+    "ground_truth": {
+      "dollar_clean_price": 5062.5,
+      "coupon_per_period": 56.25,
+      "accrued_fraction": 0.5,
+      "accrued_interest": 28.125,
+      "dirty_price": 5090.625
+    },
+    "score": {
+      "correct": false,
+      "reason": "accrued_fraction: expected 0.5, got 0.5053763440860215; accrued_interest: expected 28.125, got 28.42741935483871; dirty_price: expected 5090.625, got 5090.927419354839",
+      "parsed": {
+        "dollar_clean_price": 5062.5,
+        "coupon_per_period": 56.25,
+        "accrued_fraction": 0.5053763440860215,
+        "accrued_interest": 28.42741935483871,
+        "dirty_price": 5090.927419354839
+      }
+    }
+  },
+  {
+    "case_id": "case_02_30_360_quarterly_premium",
+    "prompt_id": "bad_03",
+    "prompt_type": "bad",
+    "model": "deepseek-v4-flash",
+    "prompt": "Use days_360 = 360*(Y2 - Y1) + 30*(M2 - M1) + (D2 - D1) directly, then calculate dirty price.\n\nBond inputs:\n{\n  \"face_value\": 5000,\n  \"clean_price_per_100\": 101.25,\n  \"annual_coupon_rate\": 0.045,\n  \"coupon_frequency\": 4,\n  \"last_coupon_date\": \"2026-02-28\",\n  \"settlement_date\": \"2026-04-15\",\n  \"next_coupon_date\": \"2026-05-31\",\n  \"day_count_convention\": \"30/360\"\n}",
+    "raw_response": "{\n  \"dollar_clean_price\": 5062.5,\n  \"coupon_per_period\": 56.25,\n  \"accrued_fraction\": 0.1305555556,\n  \"accrued_interest\": 7.34375,\n  \"dirty_price\": 5069.84375\n}",
+    "ground_truth": {
+      "dollar_clean_price": 5062.5,
+      "coupon_per_period": 56.25,
+      "accrued_fraction": 0.5,
+      "accrued_interest": 28.125,
+      "dirty_price": 5090.625
+    },
+    "score": {
+      "correct": false,
+      "reason": "accrued_fraction: expected 0.5, got 0.1305555556; accrued_interest: expected 28.125, got 7.34375; dirty_price: expected 5090.625, got 5069.84375",
+      "parsed": {
+        "dollar_clean_price": 5062.5,
+        "coupon_per_period": 56.25,
+        "accrued_fraction": 0.1305555556,
+        "accrued_interest": 7.34375,
+        "dirty_price": 5069.84375
+      }
+    }
+  },
+  {
+    "case_id": "case_02_30_360_quarterly_premium",
+    "prompt_id": "bad_04",
+    "prompt_type": "bad",
+    "model": "deepseek-v4-flash",
+    "prompt": "Use the provided 30/360 convention, but do not worry about special month-end adjustments.\n\nBond inputs:\n{\n  \"face_value\": 5000,\n  \"clean_price_per_100\": 101.25,\n  \"annual_coupon_rate\": 0.045,\n  \"coupon_frequency\": 4,\n  \"last_coupon_date\": \"2026-02-28\",\n  \"settlement_date\": \"2026-04-15\",\n  \"next_coupon_date\": \"2026-05-31\",\n  \"day_count_convention\": \"30/360\"\n}",
+    "raw_response": "{\n  \"dollar_clean_price\": 5062.5,\n  \"coupon_per_period\": 56.25,\n  \"accrued_fraction\": 0.5108695652173913,\n  \"accrued_interest\": 28.73641304347826,\n  \"dirty_price\": 5091.236413043478\n}",
+    "ground_truth": {
+      "dollar_clean_price": 5062.5,
+      "coupon_per_period": 56.25,
+      "accrued_fraction": 0.5,
+      "accrued_interest": 28.125,
+      "dirty_price": 5090.625
+    },
+    "score": {
+      "correct": false,
+      "reason": "accrued_fraction: expected 0.5, got 0.5108695652173914; accrued_interest: expected 28.125, got 28.73641304347826; dirty_price: expected 5090.625, got 5091.236413043478",
+      "parsed": {
+        "dollar_clean_price": 5062.5,
+        "coupon_per_period": 56.25,
+        "accrued_fraction": 0.5108695652173914,
+        "accrued_interest": 28.73641304347826,
+        "dirty_price": 5091.236413043478
+      }
+    }
+  },
+  {
+    "case_id": "case_02_30_360_quarterly_premium",
+    "prompt_id": "bad_05",
+    "prompt_type": "bad",
+    "model": "deepseek-v4-flash",
+    "prompt": "Estimate accrued interest from the straightforward 30/360 day difference. Do not convert February 28 to 30 and do not convert a 31st day to 30.\n\nBond inputs:\n{\n  \"face_value\": 5000,\n  \"clean_price_per_100\": 101.25,\n  \"annual_coupon_rate\": 0.045,\n  \"coupon_frequency\": 4,\n  \"last_coupon_date\": \"2026-02-28\",\n  \"settlement_date\": \"2026-04-15\",\n  \"next_coupon_date\": \"2026-05-31\",\n  \"day_count_convention\": \"30/360\"\n}",
+    "raw_response": "{\n  \"dollar_clean_price\": 5062.5,\n  \"coupon_per_period\": 56.25,\n  \"accrued_fraction\": 0.5053763440860215,\n  \"accrued_interest\": 28.427419354838708,\n  \"dirty_price\": 5090.927419354839\n}",
+    "ground_truth": {
+      "dollar_clean_price": 5062.5,
+      "coupon_per_period": 56.25,
+      "accrued_fraction": 0.5,
+      "accrued_interest": 28.125,
+      "dirty_price": 5090.625
+    },
+    "score": {
+      "correct": false,
+      "reason": "accrued_fraction: expected 0.5, got 0.5053763440860215; accrued_interest: expected 28.125, got 28.427419354838708; dirty_price: expected 5090.625, got 5090.927419354839",
+      "parsed": {
+        "dollar_clean_price": 5062.5,
+        "coupon_per_period": 56.25,
+        "accrued_fraction": 0.5053763440860215,
+        "accrued_interest": 28.427419354838708,
+        "dirty_price": 5090.927419354839
+      }
+    }
+  },
+  {
+    "case_id": "case_02_30_360_quarterly_premium",
+    "prompt_id": "bad_06",
+    "prompt_type": "bad",
+    "model": "deepseek-v4-flash",
+    "prompt": "Solve quickly using unadjusted 30/360. If the start date is February 28, leave D1=28 in the formula.\n\nBond inputs:\n{\n  \"face_value\": 5000,\n  \"clean_price_per_100\": 101.25,\n  \"annual_coupon_rate\": 0.045,\n  \"coupon_frequency\": 4,\n  \"last_coupon_date\": \"2026-02-28\",\n  \"settlement_date\": \"2026-04-15\",\n  \"next_coupon_date\": \"2026-05-31\",\n  \"day_count_convention\": \"30/360\"\n}",
+    "raw_response": "{\n  \"dollar_clean_price\": 5062.5,\n  \"coupon_per_period\": 56.25,\n  \"accrued_fraction\": 0.5053763440860215,\n  \"accrued_interest\": 28.42741935483871,\n  \"dirty_price\": 5090.927419354839\n}",
+    "ground_truth": {
+      "dollar_clean_price": 5062.5,
+      "coupon_per_period": 56.25,
+      "accrued_fraction": 0.5,
+      "accrued_interest": 28.125,
+      "dirty_price": 5090.625
+    },
+    "score": {
+      "correct": false,
+      "reason": "accrued_fraction: expected 0.5, got 0.5053763440860215; accrued_interest: expected 28.125, got 28.42741935483871; dirty_price: expected 5090.625, got 5090.927419354839",
+      "parsed": {
+        "dollar_clean_price": 5062.5,
+        "coupon_per_period": 56.25,
+        "accrued_fraction": 0.5053763440860215,
+        "accrued_interest": 28.42741935483871,
+        "dirty_price": 5090.927419354839
+      }
+    }
+  },
+  {
+    "case_id": "case_02_30_360_quarterly_premium",
+    "prompt_id": "good_01",
+    "prompt_type": "good",
+    "model": "deepseek-v4-flash",
+    "prompt": "Calculate the dirty price using the exact formulas and conventions supplied.\n\nBond inputs:\n{\n  \"face_value\": 5000,\n  \"clean_price_per_100\": 101.25,\n  \"annual_coupon_rate\": 0.045,\n  \"coupon_frequency\": 4,\n  \"last_coupon_date\": \"2026-02-28\",\n  \"settlement_date\": \"2026-04-15\",\n  \"next_coupon_date\": \"2026-05-31\",\n  \"day_count_convention\": \"30/360\"\n}\n\nUse this exact calculation sequence:\n1. dollar_clean_price = face_value * clean_price_per_100 / 100\n2. coupon_per_period = face_value * annual_coupon_rate / coupon_frequency\n3. accrued_fraction = elapsed day-count days from last_coupon_date to settlement_date divided by full coupon-period day-count days from last_coupon_date to next_coupon_date\n4. For Actual/Actual, use actual elapsed days and actual full coupon-period days.\n5. If the day-count convention is 30/360, do not use actual calendar days. Use the US 30/360 formula below for both the numerator and denominator:\n   a. Start with D1 = start date day and D2 = end date day.\n   b. If the start date is the last day of February, set D1 = 30.\n   c. Else if the start date day is 31, set D1 = 30.\n   d. If the adjusted D1 is 30 or 31 and the end date day is 31, set D2 = 30.\n   e. days_360 = 360*(Y2 - Y1) + 30*(M2 - M1) + (D2 - D1).\n   f. accrued_fraction = days_360(last_coupon_date, settlement_date) / days_360(last_coupon_date, next_coupon_date).\n6. accrued_interest = coupon_per_period * accrued_fraction\n7. dirty_price = dollar_clean_price + accrued_interest\nRound every returned numeric value to 6 decimal places.",
+    "raw_response": "{\n  \"dollar_clean_price\": 5062.500000,\n  \"coupon_per_period\": 56.250000,\n  \"accrued_fraction\": 0.500000,\n  \"accrued_interest\": 28.125000,\n  \"dirty_price\": 5090.625000\n}",
+    "ground_truth": {
+      "dollar_clean_price": 5062.5,
+      "coupon_per_period": 56.25,
+      "accrued_fraction": 0.5,
+      "accrued_interest": 28.125,
+      "dirty_price": 5090.625
+    },
+    "score": {
+      "correct": true,
+      "reason": "Matches ground truth.",
+      "parsed": {
+        "dollar_clean_price": 5062.5,
+        "coupon_per_period": 56.25,
+        "accrued_fraction": 0.5,
+        "accrued_interest": 28.125,
+        "dirty_price": 5090.625
+      }
+    }
+  },
+  {
+    "case_id": "case_02_30_360_quarterly_premium",
+    "prompt_id": "good_02",
+    "prompt_type": "good",
+    "model": "deepseek-v4-flash",
+    "prompt": "Use a step-by-step bond accrued interest calculation and return all intermediate values.\n\nBond inputs:\n{\n  \"face_value\": 5000,\n  \"clean_price_per_100\": 101.25,\n  \"annual_coupon_rate\": 0.045,\n  \"coupon_frequency\": 4,\n  \"last_coupon_date\": \"2026-02-28\",\n  \"settlement_date\": \"2026-04-15\",\n  \"next_coupon_date\": \"2026-05-31\",\n  \"day_count_convention\": \"30/360\"\n}\n\nUse this exact calculation sequence:\n1. dollar_clean_price = face_value * clean_price_per_100 / 100\n2. coupon_per_period = face_value * annual_coupon_rate / coupon_frequency\n3. accrued_fraction = elapsed day-count days from last_coupon_date to settlement_date divided by full coupon-period day-count days from last_coupon_date to next_coupon_date\n4. For Actual/Actual, use actual elapsed days and actual full coupon-period days.\n5. If the day-count convention is 30/360, do not use actual calendar days. Use the US 30/360 formula below for both the numerator and denominator:\n   a. Start with D1 = start date day and D2 = end date day.\n   b. If the start date is the last day of February, set D1 = 30.\n   c. Else if the start date day is 31, set D1 = 30.\n   d. If the adjusted D1 is 30 or 31 and the end date day is 31, set D2 = 30.\n   e. days_360 = 360*(Y2 - Y1) + 30*(M2 - M1) + (D2 - D1).\n   f. accrued_fraction = days_360(last_coupon_date, settlement_date) / days_360(last_coupon_date, next_coupon_date).\n6. accrued_interest = coupon_per_period * accrued_fraction\n7. dirty_price = dollar_clean_price + accrued_interest\nRound every returned numeric value to 6 decimal places.",
+    "raw_response": "{\n  \"dollar_clean_price\": 5062.500000,\n  \"coupon_per_period\": 56.250000,\n  \"accrued_fraction\": 0.500000,\n  \"accrued_interest\": 28.125000,\n  \"dirty_price\": 5090.625000\n}",
+    "ground_truth": {
+      "dollar_clean_price": 5062.5,
+      "coupon_per_period": 56.25,
+      "accrued_fraction": 0.5,
+      "accrued_interest": 28.125,
+      "dirty_price": 5090.625
+    },
+    "score": {
+      "correct": true,
+      "reason": "Matches ground truth.",
+      "parsed": {
+        "dollar_clean_price": 5062.5,
+        "coupon_per_period": 56.25,
+        "accrued_fraction": 0.5,
+        "accrued_interest": 28.125,
+        "dirty_price": 5090.625
+      }
+    }
+  },
+  {
+    "case_id": "case_02_30_360_quarterly_premium",
+    "prompt_id": "good_03",
+    "prompt_type": "good",
+    "model": "deepseek-v4-flash",
+    "prompt": "Follow the specified day-count convention exactly. Do not use a 365-day approximation.\n\nBond inputs:\n{\n  \"face_value\": 5000,\n  \"clean_price_per_100\": 101.25,\n  \"annual_coupon_rate\": 0.045,\n  \"coupon_frequency\": 4,\n  \"last_coupon_date\": \"2026-02-28\",\n  \"settlement_date\": \"2026-04-15\",\n  \"next_coupon_date\": \"2026-05-31\",\n  \"day_count_convention\": \"30/360\"\n}\n\nUse this exact calculation sequence:\n1. dollar_clean_price = face_value * clean_price_per_100 / 100\n2. coupon_per_period = face_value * annual_coupon_rate / coupon_frequency\n3. accrued_fraction = elapsed day-count days from last_coupon_date to settlement_date divided by full coupon-period day-count days from last_coupon_date to next_coupon_date\n4. For Actual/Actual, use actual elapsed days and actual full coupon-period days.\n5. If the day-count convention is 30/360, do not use actual calendar days. Use the US 30/360 formula below for both the numerator and denominator:\n   a. Start with D1 = start date day and D2 = end date day.\n   b. If the start date is the last day of February, set D1 = 30.\n   c. Else if the start date day is 31, set D1 = 30.\n   d. If the adjusted D1 is 30 or 31 and the end date day is 31, set D2 = 30.\n   e. days_360 = 360*(Y2 - Y1) + 30*(M2 - M1) + (D2 - D1).\n   f. accrued_fraction = days_360(last_coupon_date, settlement_date) / days_360(last_coupon_date, next_coupon_date).\n6. accrued_interest = coupon_per_period * accrued_fraction\n7. dirty_price = dollar_clean_price + accrued_interest\nRound every returned numeric value to 6 decimal places.",
+    "raw_response": "{\n  \"dollar_clean_price\": 5062.500000,\n  \"coupon_per_period\": 56.250000,\n  \"accrued_fraction\": 0.500000,\n  \"accrued_interest\": 28.125000,\n  \"dirty_price\": 5090.625000\n}",
+    "ground_truth": {
+      "dollar_clean_price": 5062.5,
+      "coupon_per_period": 56.25,
+      "accrued_fraction": 0.5,
+      "accrued_interest": 28.125,
+      "dirty_price": 5090.625
+    },
+    "score": {
+      "correct": true,
+      "reason": "Matches ground truth.",
+      "parsed": {
+        "dollar_clean_price": 5062.5,
+        "coupon_per_period": 56.25,
+        "accrued_fraction": 0.5,
+        "accrued_interest": 28.125,
+        "dirty_price": 5090.625
+      }
+    }
+  },
+  {
+    "case_id": "case_02_30_360_quarterly_premium",
+    "prompt_id": "good_04",
+    "prompt_type": "good",
+    "model": "deepseek-v4-flash",
+    "prompt": "Validate that dirty price equals dollar clean price plus accrued interest.\n\nBond inputs:\n{\n  \"face_value\": 5000,\n  \"clean_price_per_100\": 101.25,\n  \"annual_coupon_rate\": 0.045,\n  \"coupon_frequency\": 4,\n  \"last_coupon_date\": \"2026-02-28\",\n  \"settlement_date\": \"2026-04-15\",\n  \"next_coupon_date\": \"2026-05-31\",\n  \"day_count_convention\": \"30/360\"\n}\n\nUse this exact calculation sequence:\n1. dollar_clean_price = face_value * clean_price_per_100 / 100\n2. coupon_per_period = face_value * annual_coupon_rate / coupon_frequency\n3. accrued_fraction = elapsed day-count days from last_coupon_date to settlement_date divided by full coupon-period day-count days from last_coupon_date to next_coupon_date\n4. For Actual/Actual, use actual elapsed days and actual full coupon-period days.\n5. If the day-count convention is 30/360, do not use actual calendar days. Use the US 30/360 formula below for both the numerator and denominator:\n   a. Start with D1 = start date day and D2 = end date day.\n   b. If the start date is the last day of February, set D1 = 30.\n   c. Else if the start date day is 31, set D1 = 30.\n   d. If the adjusted D1 is 30 or 31 and the end date day is 31, set D2 = 30.\n   e. days_360 = 360*(Y2 - Y1) + 30*(M2 - M1) + (D2 - D1).\n   f. accrued_fraction = days_360(last_coupon_date, settlement_date) / days_360(last_coupon_date, next_coupon_date).\n6. accrued_interest = coupon_per_period * accrued_fraction\n7. dirty_price = dollar_clean_price + accrued_interest\nRound every returned numeric value to 6 decimal places.",
+    "raw_response": "{\n  \"dollar_clean_price\": 5062.500000,\n  \"coupon_per_period\": 56.250000,\n  \"accrued_fraction\": 0.500000,\n  \"accrued_interest\": 28.125000,\n  \"dirty_price\": 5090.625000\n}",
+    "ground_truth": {
+      "dollar_clean_price": 5062.5,
+      "coupon_per_period": 56.25,
+      "accrued_fraction": 0.5,
+      "accrued_interest": 28.125,
+      "dirty_price": 5090.625
+    },
+    "score": {
+      "correct": true,
+      "reason": "Matches ground truth.",
+      "parsed": {
+        "dollar_clean_price": 5062.5,
+        "coupon_per_period": 56.25,
+        "accrued_fraction": 0.5,
+        "accrued_interest": 28.125,
+        "dirty_price": 5090.625
+      }
+    }
+  },
+  {
+    "case_id": "case_02_30_360_quarterly_premium",
+    "prompt_id": "good_05",
+    "prompt_type": "good",
+    "model": "deepseek-v4-flash",
+    "prompt": "Avoid common mistakes: clean price is per 100 par, coupon must be per period, and day count must match the input.\n\nBond inputs:\n{\n  \"face_value\": 5000,\n  \"clean_price_per_100\": 101.25,\n  \"annual_coupon_rate\": 0.045,\n  \"coupon_frequency\": 4,\n  \"last_coupon_date\": \"2026-02-28\",\n  \"settlement_date\": \"2026-04-15\",\n  \"next_coupon_date\": \"2026-05-31\",\n  \"day_count_convention\": \"30/360\"\n}\n\nUse this exact calculation sequence:\n1. dollar_clean_price = face_value * clean_price_per_100 / 100\n2. coupon_per_period = face_value * annual_coupon_rate / coupon_frequency\n3. accrued_fraction = elapsed day-count days from last_coupon_date to settlement_date divided by full coupon-period day-count days from last_coupon_date to next_coupon_date\n4. For Actual/Actual, use actual elapsed days and actual full coupon-period days.\n5. If the day-count convention is 30/360, do not use actual calendar days. Use the US 30/360 formula below for both the numerator and denominator:\n   a. Start with D1 = start date day and D2 = end date day.\n   b. If the start date is the last day of February, set D1 = 30.\n   c. Else if the start date day is 31, set D1 = 30.\n   d. If the adjusted D1 is 30 or 31 and the end date day is 31, set D2 = 30.\n   e. days_360 = 360*(Y2 - Y1) + 30*(M2 - M1) + (D2 - D1).\n   f. accrued_fraction = days_360(last_coupon_date, settlement_date) / days_360(last_coupon_date, next_coupon_date).\n6. accrued_interest = coupon_per_period * accrued_fraction\n7. dirty_price = dollar_clean_price + accrued_interest\nRound every returned numeric value to 6 decimal places.",
+    "raw_response": "{\n  \"dollar_clean_price\": 5062.500000,\n  \"coupon_per_period\": 56.250000,\n  \"accrued_fraction\": 0.500000,\n  \"accrued_interest\": 28.125000,\n  \"dirty_price\": 5090.625000\n}",
+    "ground_truth": {
+      "dollar_clean_price": 5062.5,
+      "coupon_per_period": 56.25,
+      "accrued_fraction": 0.5,
+      "accrued_interest": 28.125,
+      "dirty_price": 5090.625
+    },
+    "score": {
+      "correct": true,
+      "reason": "Matches ground truth.",
+      "parsed": {
+        "dollar_clean_price": 5062.5,
+        "coupon_per_period": 56.25,
+        "accrued_fraction": 0.5,
+        "accrued_interest": 28.125,
+        "dirty_price": 5090.625
+      }
+    }
+  },
+  {
+    "case_id": "case_02_30_360_quarterly_premium",
+    "prompt_id": "good_06",
+    "prompt_type": "good",
+    "model": "deepseek-v4-flash",
+    "prompt": "Return deterministic benchmark output rounded to 6 decimal places.\n\nBond inputs:\n{\n  \"face_value\": 5000,\n  \"clean_price_per_100\": 101.25,\n  \"annual_coupon_rate\": 0.045,\n  \"coupon_frequency\": 4,\n  \"last_coupon_date\": \"2026-02-28\",\n  \"settlement_date\": \"2026-04-15\",\n  \"next_coupon_date\": \"2026-05-31\",\n  \"day_count_convention\": \"30/360\"\n}\n\nUse this exact calculation sequence:\n1. dollar_clean_price = face_value * clean_price_per_100 / 100\n2. coupon_per_period = face_value * annual_coupon_rate / coupon_frequency\n3. accrued_fraction = elapsed day-count days from last_coupon_date to settlement_date divided by full coupon-period day-count days from last_coupon_date to next_coupon_date\n4. For Actual/Actual, use actual elapsed days and actual full coupon-period days.\n5. If the day-count convention is 30/360, do not use actual calendar days. Use the US 30/360 formula below for both the numerator and denominator:\n   a. Start with D1 = start date day and D2 = end date day.\n   b. If the start date is the last day of February, set D1 = 30.\n   c. Else if the start date day is 31, set D1 = 30.\n   d. If the adjusted D1 is 30 or 31 and the end date day is 31, set D2 = 30.\n   e. days_360 = 360*(Y2 - Y1) + 30*(M2 - M1) + (D2 - D1).\n   f. accrued_fraction = days_360(last_coupon_date, settlement_date) / days_360(last_coupon_date, next_coupon_date).\n6. accrued_interest = coupon_per_period * accrued_fraction\n7. dirty_price = dollar_clean_price + accrued_interest\nRound every returned numeric value to 6 decimal places.",
+    "raw_response": "{\n  \"dollar_clean_price\": 5062.500000,\n  \"coupon_per_period\": 56.250000,\n  \"accrued_fraction\": 0.500000,\n  \"accrued_interest\": 28.125000,\n  \"dirty_price\": 5090.625000\n}",
+    "ground_truth": {
+      "dollar_clean_price": 5062.5,
+      "coupon_per_period": 56.25,
+      "accrued_fraction": 0.5,
+      "accrued_interest": 28.125,
+      "dirty_price": 5090.625
+    },
+    "score": {
+      "correct": true,
+      "reason": "Matches ground truth.",
+      "parsed": {
+        "dollar_clean_price": 5062.5,
+        "coupon_per_period": 56.25,
+        "accrued_fraction": 0.5,
+        "accrued_interest": 28.125,
+        "dirty_price": 5090.625
+      }
+    }
+  }
+]

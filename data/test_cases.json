@@ -1,0 +1,116 @@
+[
+  {
+    "id": "case_01_actual_actual_semiannual_discount",
+    "description": "Semiannual coupon bond below par using Actual/Actual.",
+    "face_value": 1000,
+    "clean_price_per_100": 98.5,
+    "annual_coupon_rate": 0.06,
+    "coupon_frequency": 2,
+    "last_coupon_date": "2026-01-15",
+    "settlement_date": "2026-04-15",
+    "next_coupon_date": "2026-07-15",
+    "day_count_convention": "Actual/Actual",
+    "expected": {
+      "dollar_clean_price": 985.0,
+      "coupon_per_period": 30.0,
+      "accrued_fraction": 0.497238,
+      "accrued_interest": 14.917127,
+      "dirty_price": 999.917127
+    }
+  },
+  {
+    "id": "case_02_30_360_quarterly_premium",
+    "description": "Quarterly coupon bond above par using 30/360.",
+    "face_value": 5000,
+    "clean_price_per_100": 101.25,
+    "annual_coupon_rate": 0.045,
+    "coupon_frequency": 4,
+    "last_coupon_date": "2026-02-28",
+    "settlement_date": "2026-04-15",
+    "next_coupon_date": "2026-05-31",
+    "day_count_convention": "30/360",
+    "expected": {
+      "dollar_clean_price": 5062.5,
+      "coupon_per_period": 56.25,
+      "accrued_fraction": 0.5,
+      "accrued_interest": 28.125,
+      "dirty_price": 5090.625
+    }
+  },
+  {
+    "id": "case_03_actual_actual_on_coupon_date",
+    "description": "Settlement exactly on coupon date, so accrued interest is zero.",
+    "face_value": 1000,
+    "clean_price_per_100": 100.0,
+    "annual_coupon_rate": 0.05,
+    "coupon_frequency": 2,
+    "last_coupon_date": "2026-06-30",
+    "settlement_date": "2026-06-30",
+    "next_coupon_date": "2026-12-31",
+    "day_count_convention": "Actual/Actual",
+    "expected": {
+      "dollar_clean_price": 1000.0,
+      "coupon_per_period": 25.0,
+      "accrued_fraction": 0.0,
+      "accrued_interest": 0.0,
+      "dirty_price": 1000.0
+    }
+  },
+  {
+    "id": "case_04_30_360_near_next_coupon",
+    "description": "Settlement close to next coupon date using 30/360.",
+    "face_value": 10000,
+    "clean_price_per_100": 97.75,
+    "annual_coupon_rate": 0.08,
+    "coupon_frequency": 2,
+    "last_coupon_date": "2026-03-01",
+    "settlement_date": "2026-08-25",
+    "next_coupon_date": "2026-09-01",
+    "day_count_convention": "30/360",
+    "expected": {
+      "dollar_clean_price": 9775.0,
+      "coupon_per_period": 400.0,
+      "accrued_fraction": 0.966667,
+      "accrued_interest": 386.666667,
+      "dirty_price": 10161.666667
+    }
+  },
+  {
+    "id": "case_05_actual_actual_monthly_small_face",
+    "description": "Monthly coupon bond with a non-standard face value using Actual/Actual.",
+    "face_value": 2500,
+    "clean_price_per_100": 99.2,
+    "annual_coupon_rate": 0.036,
+    "coupon_frequency": 12,
+    "last_coupon_date": "2026-01-31",
+    "settlement_date": "2026-02-10",
+    "next_coupon_date": "2026-02-28",
+    "day_count_convention": "Actual/Actual",
+    "expected": {
+      "dollar_clean_price": 2480.0,
+      "coupon_per_period": 7.5,
+      "accrued_fraction": 0.357143,
+      "accrued_interest": 2.678571,
+      "dirty_price": 2482.678571
+    }
+  },
+  {
+    "id": "case_06_30_360_annual_premium",
+    "description": "Annual coupon bond above par using 30/360.",
+    "face_value": 1000,
+    "clean_price_per_100": 103.4,
+    "annual_coupon_rate": 0.0725,
+    "coupon_frequency": 1,
+    "last_coupon_date": "2025-12-31",
+    "settlement_date": "2026-05-29",
+    "next_coupon_date": "2026-12-31",
+    "day_count_convention": "30/360",
+    "expected": {
+      "dollar_clean_price": 1034.0,
+      "coupon_per_period": 72.5,
+      "accrued_fraction": 0.413889,
+      "accrued_interest": 30.006944,
+      "dirty_price": 1064.006944
+    }
+  }
+]
