@@ -36,6 +36,7 @@ Common mistakes include:
 ```text
 finance-prompting-bond-pricing-demo/
 |-- README.md
+|-- PROMPT_COMPARISON.md
 |-- requirements.txt
 |-- data/
 |   `-- test_cases.json
@@ -85,6 +86,8 @@ The project includes two prompt sets:
 - `prompts/good_prompts.md`: 6 structured prompts that specify formulas, conventions, and validation checks.
 
 To test with an LLM, combine one prompt with one JSON case from `data/test_cases.json`, then compare the answer against the solver output.
+
+See `PROMPT_COMPARISON.md` for the explanation of what the improved prompts teach. The comparison frames the task as skill transfer: the initial prompts are missing the US 30/360 month-end convention, while the improved prompts state that convention explicitly.
 
 ## Run
 

@@ -1,6 +1,6 @@
 # Bad Prompts
 
-These prompts are intentionally under-specified or naive. They are plausible prompts a user might give to an LLM, but they do not define the exact 30/360 variant or month-end adjustments needed for the benchmark case.
+These prompts are intentionally under-specified or naive. They are plausible initial prompts from a user who knows that 30/360 is needed, but has not yet learned the exact US 30/360 month-end adjustments needed for the benchmark case. They are included as the "before teaching the skill" prompts, not as adversarial traps.
 
 ## 1. Basic Dirty Price
 
