@@ -159,6 +159,8 @@ For example, one document may provide a general Actual/Actual rule, while the sp
 
 This tests whether the model can correctly handle rule priority and avoid using irrelevant context.
 
+See DATASET_PLAN.md for the detailed parameterized dataset design.
+
 ## 6. Ground Truth and Evaluation
 
 A deterministic Python solver will be used to generate ground-truth answers for each test case. The solver will compute the required outputs using explicit formulas and day-count conventions.
